@@ -49,4 +49,14 @@ class PublicHomeTest extends TestCase
             'status' => 'new',
         ]);
     }
+
+    public function test_content_pages_render_seeded_content(): void
+    {
+        $this->seed(CasaNawalliDemoSeeder::class);
+
+        $this->get('/en/experiences')->assertOk()->assertSee('Edible tropical gardens');
+        $this->get('/en/plaza-nawalli')->assertOk()->assertSee('Marea Cafe');
+        $this->get('/en/faq')->assertOk()->assertSee('Is Casa Nawalli adults-only?');
+        $this->get('/en/blog')->assertOk()->assertSee('What to do in Sayulita?');
+    }
 }

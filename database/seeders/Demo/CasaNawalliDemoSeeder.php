@@ -189,5 +189,14 @@ class CasaNawalliDemoSeeder extends Seeder
 
             $room->amenities()->sync($amenities->pluck('id')->all());
         }
+
+        $this->call([
+            ExperienceSeeder::class,
+            PackageSeeder::class,
+            PlazaBusinessSeeder::class,
+            FaqSeeder::class,
+            BlogPostSeeder::class,
+            GalleryImageSeeder::class,
+        ]);
     }
 }
