@@ -4,6 +4,7 @@ set -euo pipefail
 BASE_URL="${EXPORT_SOURCE_URL:-http://127.0.0.1:8000}"
 BASE_PATH="${PAGES_BASE_PATH:-}"
 OUT_DIR="${STATIC_EXPORT_DIR:-static-export}"
+export BASE_PATH
 
 rm -rf "$OUT_DIR"
 mkdir -p "$OUT_DIR"
@@ -53,7 +54,15 @@ cp public/favicon.ico "$OUT_DIR/favicon.ico"
 cp "$OUT_DIR/en/index.html" "$OUT_DIR/index.html"
 
 find "$OUT_DIR" -name "*.html" -type f -print0 | while IFS= read -r -d '' file; do
-  perl -0pi -e 's#http://127\.0\.0\.1:8000#$ENV{BASE_PATH}#g; s#http://localhost#$ENV{BASE_PATH}#g; s#href="/#href="$ENV{BASE_PATH}/#g; s#src="/#src="$ENV{BASE_PATH}/#g' "$file"
+  perl -0pi -e '
+    my $base = $ENV{BASE_PATH} // "";
+    my $prefix = $base;
+    $prefix =~ s#^/##;
+    s#https?://(?:127\.0\.0\.1:8000|localhost)##g;
+    if (length $base) {
+      s#(href|src)="/(?!\Q$prefix\E/)#$1="$base/#g;
+    }
+  ' "$file"
 done
 
 touch "$OUT_DIR/.nojekyll"
