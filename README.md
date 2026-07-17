@@ -67,3 +67,13 @@ No guardes credenciales en el repositorio.
 GitHub Pages no ejecuta PHP ni Laravel. El workflow `.github/workflows/pages.yml` publica una version estatica de vista previa usando `scripts/export-static.sh`.
 
 Para repositorios tipo `usuario.github.io` o dominios personalizados no necesitas cambiar nada. Para Project Pages como `usuario.github.io/casanawalli`, crea una variable de repositorio llamada `PAGES_BASE_PATH` con el valor `/casanawalli`.
+
+## Contenido actual del sitio
+
+Para evitar inventar contenido, se puede descargar un snapshot desde el WordPress publico actual:
+
+```bash
+bash scripts/fetch-current-site-content.sh
+```
+
+El script genera `database/content/current-site/manifest.json` con el mapa de paginas/posts. Los JSON/HTML completos quedan locales e ignorados por Git; desde esos snapshots normalizamos seeders de Laravel.
