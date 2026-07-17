@@ -50,6 +50,7 @@ done
 
 cp -R public/build "$OUT_DIR/build"
 cp public/favicon.ico "$OUT_DIR/favicon.ico"
+cp "$OUT_DIR/en/index.html" "$OUT_DIR/index.html"
 
 find "$OUT_DIR" -name "*.html" -type f -print0 | while IFS= read -r -d '' file; do
   perl -0pi -e 's#http://127\.0\.0\.1:8000#$ENV{BASE_PATH}#g; s#http://localhost#$ENV{BASE_PATH}#g; s#href="/#href="$ENV{BASE_PATH}/#g; s#src="/#src="$ENV{BASE_PATH}/#g' "$file"
