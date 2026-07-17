@@ -3,17 +3,25 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+@font-face {
+    font-family: 'Cukier';
+    src: url('/assets/current-site/cukier-regular.ttf') format('truetype');
+    font-display: swap;
+}
+
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-serif: Georgia, Cambria, 'Times New Roman', Times, serif;
-    --color-nawalli-navy: #182653;
-    --color-nawalli-turquoise: #11aaa8;
-    --color-nawalli-aqua: #83d5cf;
+    --font-serif: 'Cukier', Georgia, Cambria, 'Times New Roman', Times, serif;
+    --color-nawalli-navy: #281d59;
+    --color-nawalli-turquoise: #46c6bd;
+    --color-nawalli-aqua: #61bbb3;
     --color-nawalli-ivory: #fffdf7;
-    --color-nawalli-sand: #f4efe4;
+    --color-nawalli-sand: #f7f7f7;
     --color-nawalli-gold: #d8b46a;
     --color-nawalli-green: #4f725e;
+    --color-nawalli-blue: #5978c1;
+    --color-nawalli-ink: #4e4d4d;
 }
 
 @layer base {
@@ -23,27 +31,27 @@
 
     body {
         background: #fffdf7;
-        color: #182653;
+        color: #4e4d4d;
     }
 
     :focus-visible {
-        outline: 3px solid #11aaa8;
+        outline: 3px solid #46c6bd;
         outline-offset: 3px;
     }
 }
 
 @layer components {
     .editorial-eyebrow {
-        color: #4f725e;
+        color: #5978c1;
         font-size: 0.76rem;
         font-weight: 700;
-        letter-spacing: 0.16em;
+        letter-spacing: 0.18em;
         text-transform: uppercase;
     }
 
     .image-wash {
         background:
-            linear-gradient(rgba(24, 38, 83, 0.18), rgba(24, 38, 83, 0.42)),
+            linear-gradient(rgba(40, 29, 89, 0.18), rgba(40, 29, 89, 0.44)),
             var(--image-url);
         background-position: center;
         background-size: cover;
@@ -51,7 +59,12 @@
 
     .botanical-paper {
         background-image:
-            radial-gradient(circle at 20% 20%, rgba(17, 170, 168, 0.08), transparent 26%),
-            radial-gradient(circle at 80% 10%, rgba(79, 114, 94, 0.09), transparent 22%);
+            radial-gradient(circle at 20% 20%, rgba(70, 198, 189, 0.1), transparent 26%),
+            radial-gradient(circle at 80% 10%, rgba(89, 120, 193, 0.1), transparent 22%);
+    }
+
+    .brand-nav {
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
     }
 }

@@ -64,29 +64,28 @@
 <body class="min-h-screen font-sans antialiased">
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-nawalli-ivory focus:px-4 focus:py-2">Skip to content</a>
 
-    <header class="sticky top-0 z-40 border-b border-white/40 bg-nawalli-ivory/90 backdrop-blur">
+    <header class="sticky top-0 z-40 border-b border-white/10 bg-nawalli-navy text-white shadow-[0_10px_30px_rgba(40,29,89,0.12)]">
         <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-            <a href="{{ route('public.home', ['locale' => $locale]) }}" class="flex items-center gap-3 font-serif text-2xl text-nawalli-navy">
-                <img src="{{ asset('assets/current-site/flower-icon.png') }}" alt="" class="h-7 w-auto">
-                <span>Casa Nawalli</span>
+            <a href="{{ route('public.home', ['locale' => $locale]) }}" class="flex items-center gap-3">
+                <img src="{{ asset('assets/current-site/logo-white.webp') }}" alt="Casa Nawalli" class="h-11 w-auto md:h-12">
             </a>
-            <nav class="hidden items-center gap-7 text-sm font-semibold text-nawalli-navy lg:flex" aria-label="Primary">
+            <nav class="brand-nav hidden items-center gap-6 text-[0.72rem] font-bold text-white/82 lg:flex" aria-label="Primary">
                 @foreach ($nav as $item)
-                    <a class="hover:text-nawalli-turquoise" href="{{ route($item['route'], ['locale' => $locale]) }}">{{ $item['label'] }}</a>
+                    <a class="transition hover:text-nawalli-turquoise" href="{{ route($item['route'], ['locale' => $locale]) }}">{{ $item['label'] }}</a>
                 @endforeach
             </nav>
             <div class="hidden items-center gap-3 lg:flex">
-                <a href="{{ route('public.home', ['locale' => $alternateLocale]) }}" class="text-sm font-bold uppercase text-nawalli-green">{{ $alternateLocale }}</a>
-                <a href="{{ route('public.availability', ['locale' => $locale]) }}" class="bg-nawalli-navy px-5 py-3 text-sm font-bold text-white hover:bg-nawalli-green">{{ $locale === 'es' ? 'Disponibilidad' : 'Availability' }}</a>
+                <a href="{{ route('public.home', ['locale' => $alternateLocale]) }}" class="text-xs font-bold uppercase tracking-[0.18em] text-white/75 hover:text-nawalli-turquoise">{{ $alternateLocale }}</a>
+                <a href="{{ route('public.availability', ['locale' => $locale]) }}" class="bg-nawalli-turquoise px-5 py-3 text-sm font-bold text-nawalli-navy transition hover:bg-white">{{ $locale === 'es' ? 'Disponibilidad' : 'Availability' }}</a>
             </div>
             <details class="relative lg:hidden">
-                <summary class="cursor-pointer list-none border border-nawalli-navy px-4 py-2 text-sm font-bold">Menu</summary>
-                <nav class="absolute right-0 mt-3 w-64 border border-nawalli-sand bg-nawalli-ivory p-4 shadow-xl">
+                <summary class="cursor-pointer list-none border border-white/35 px-4 py-2 text-sm font-bold text-white">Menu</summary>
+                <nav class="absolute right-0 mt-3 w-64 border border-nawalli-sand bg-nawalli-ivory p-4 text-nawalli-navy shadow-xl">
                     @foreach ($nav as $item)
-                        <a class="block py-3 text-sm font-semibold" href="{{ route($item['route'], ['locale' => $locale]) }}">{{ $item['label'] }}</a>
+                        <a class="brand-nav block py-3 text-xs font-bold" href="{{ route($item['route'], ['locale' => $locale]) }}">{{ $item['label'] }}</a>
                     @endforeach
-                    <a class="block py-3 text-sm font-bold uppercase text-nawalli-green" href="{{ route('public.home', ['locale' => $alternateLocale]) }}">{{ $alternateLocale }}</a>
-                    <a class="mt-3 block bg-nawalli-navy px-4 py-3 text-center text-sm font-bold text-white" href="{{ route('public.availability', ['locale' => $locale]) }}">{{ $locale === 'es' ? 'Disponibilidad' : 'Availability' }}</a>
+                    <a class="block py-3 text-sm font-bold uppercase tracking-[0.18em] text-nawalli-blue" href="{{ route('public.home', ['locale' => $alternateLocale]) }}">{{ $alternateLocale }}</a>
+                    <a class="mt-3 block bg-nawalli-turquoise px-4 py-3 text-center text-sm font-bold text-nawalli-navy" href="{{ route('public.availability', ['locale' => $locale]) }}">{{ $locale === 'es' ? 'Disponibilidad' : 'Availability' }}</a>
                 </nav>
             </details>
         </div>
@@ -96,7 +95,7 @@
         @yield('content')
     </main>
 
-    <a href="https://wa.me/523292988742" class="fixed bottom-5 right-5 z-30 bg-nawalli-green px-4 py-3 text-sm font-bold text-white shadow-lg">WhatsApp</a>
+    <a href="https://wa.me/523292988742" class="fixed bottom-5 right-5 z-30 bg-nawalli-turquoise px-4 py-3 text-sm font-bold text-nawalli-navy shadow-lg">WhatsApp</a>
 
     <footer class="bg-nawalli-navy text-white">
         <div class="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-[1.2fr_1fr_1fr] lg:px-8">

@@ -6,6 +6,7 @@ BASE_PATH="${PAGES_BASE_PATH:-}"
 STATIC_SITE_URL="${STATIC_SITE_URL:-}"
 OUT_DIR="${STATIC_EXPORT_DIR:-static-export}"
 export BASE_PATH
+CURL=(curl --retry 5 --retry-delay 1 --retry-connrefused -fsSL)
 
 rm -rf "$OUT_DIR"
 mkdir -p "$OUT_DIR"
@@ -56,11 +57,11 @@ paths=(
 for path in "${paths[@]}"; do
   target="$OUT_DIR$path/index.html"
   mkdir -p "$(dirname "$target")"
-  curl -fsSL "$BASE_URL$path" -o "$target"
+  "${CURL[@]}" "$BASE_URL$path" -o "$target"
 done
 
-curl -fsSL "$BASE_URL/sitemap.xml" -o "$OUT_DIR/sitemap.xml"
-curl -fsSL "$BASE_URL/robots.txt" -o "$OUT_DIR/robots.txt"
+"${CURL[@]}" "$BASE_URL/sitemap.xml" -o "$OUT_DIR/sitemap.xml"
+"${CURL[@]}" "$BASE_URL/robots.txt" -o "$OUT_DIR/robots.txt"
 if [ -n "$STATIC_SITE_URL" ]; then
   perl -0pi -e 's#https?://(?:127\.0\.0\.1:8000|localhost)#$ENV{STATIC_SITE_URL}#g' "$OUT_DIR/sitemap.xml" "$OUT_DIR/robots.txt"
 fi
