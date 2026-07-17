@@ -5,7 +5,7 @@
 @section('meta_description', 'Casa Nawalli is a family-owned adults-only boutique hotel and living tropical garden one block from the sea in Sayulita.')
 
 @section('content')
-    <section class="image-wash min-h-[calc(100vh-73px)]" style="--image-url: url('https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1800&q=82')">
+    <section class="image-wash min-h-[calc(100vh-73px)]" style="--image-url: url('{{ asset('assets/current-site/hero-garden-pool.webp') }}')">
         <div class="mx-auto flex min-h-[calc(100vh-73px)] max-w-7xl items-end px-5 pb-16 lg:px-8">
             <div class="max-w-3xl text-white">
                 <p class="text-sm font-bold uppercase tracking-[0.2em]">Adults-only boutique hotel</p>
@@ -80,8 +80,8 @@
                 <p class="mt-7 text-lg leading-8 text-nawalli-navy/75">The name draws from Nahual, the being who transforms into elements of nature to learn from her, and Tate Naaliwa, Wirarika goddess of rain and mother of all flowers. Casa Nawalli turns that origin into a living garden for guests.</p>
             </div>
             <div class="grid grid-cols-2 gap-4">
-                <img class="aspect-[3/4] w-full object-cover" src="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=900&q=80" alt="Sayulita coastline placeholder" loading="lazy">
-                <img class="mt-12 aspect-[3/4] w-full object-cover" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=900&q=80" alt="Boutique hotel garden placeholder" loading="lazy">
+                <img class="aspect-[3/4] w-full object-cover" src="{{ asset('assets/current-site/lifestyle-garden.webp') }}" alt="Casa Nawalli tropical garden" loading="lazy">
+                <img class="mt-12 aspect-[3/4] w-full object-cover" src="{{ asset('assets/current-site/flower-cover.webp') }}" alt="Casa Nawalli floral pattern" loading="lazy">
             </div>
         </div>
     </section>

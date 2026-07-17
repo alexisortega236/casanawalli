@@ -27,7 +27,10 @@
 
     <header class="sticky top-0 z-40 border-b border-white/40 bg-nawalli-ivory/90 backdrop-blur">
         <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-            <a href="{{ route('public.home', ['locale' => $locale]) }}" class="font-serif text-2xl text-nawalli-navy">Casa Nawalli</a>
+            <a href="{{ route('public.home', ['locale' => $locale]) }}" class="flex items-center gap-3 font-serif text-2xl text-nawalli-navy">
+                <img src="{{ asset('assets/current-site/flower-icon.png') }}" alt="" class="h-7 w-auto">
+                <span>Casa Nawalli</span>
+            </a>
             <nav class="hidden items-center gap-7 text-sm font-semibold text-nawalli-navy lg:flex" aria-label="Primary">
                 @foreach ($nav as $item)
                     <a class="hover:text-nawalli-turquoise" href="{{ route($item['route'], ['locale' => $locale]) }}">{{ $item['label'] }}</a>

@@ -5,7 +5,7 @@
 @section('meta_description', 'Plaza Nawalli gathers food, wellness, boutiques and local businesses connected to Casa Nawalli.')
 
 @section('content')
-    <section class="image-wash min-h-[62vh]" style="--image-url: url('https://nawallisayulita.com/wp-content/uploads/2023/08/background-palmer-nawalli-2.webp')">
+    <section class="image-wash min-h-[62vh]" style="--image-url: url('{{ asset('assets/current-site/palms-background.webp') }}')">
         <div class="mx-auto flex min-h-[62vh] max-w-7xl items-end px-5 pb-14 text-white lg:px-8">
             <div class="max-w-3xl">
                 <p class="text-sm font-bold uppercase tracking-[0.2em] text-nawalli-aqua">Plaza Nawalli</p>

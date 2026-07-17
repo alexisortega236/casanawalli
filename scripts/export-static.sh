@@ -59,6 +59,7 @@ for path in "${paths[@]}"; do
 done
 
 cp -R public/build "$OUT_DIR/build"
+cp -R public/assets "$OUT_DIR/assets"
 cp public/favicon.ico "$OUT_DIR/favicon.ico"
 cp "$OUT_DIR/en/index.html" "$OUT_DIR/index.html"
 
@@ -70,6 +71,7 @@ find "$OUT_DIR" -name "*.html" -type f -print0 | while IFS= read -r -d '' file; 
     s#https?://(?:127\.0\.0\.1:8000|localhost)##g;
     if (length $base) {
       s#(href|src)="/(?!\Q$prefix\E/)#$1="$base/#g;
+      s#url\((["\x27])/(?!\Q$prefix\E/)#url($1${base}/#g;
     }
   ' "$file"
 done

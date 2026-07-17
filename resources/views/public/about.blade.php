@@ -14,7 +14,7 @@
     </section>
     <section class="px-5 py-20 lg:px-8">
         <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2">
-            <img class="aspect-[4/5] w-full object-cover" src="https://nawallisayulita.com/wp-content/uploads/2023/10/nawalli-cover-flower-8-copia.webp" alt="Casa Nawalli flowers" loading="lazy">
+            <img class="aspect-[4/5] w-full object-cover" src="{{ asset('assets/current-site/flower-cover.webp') }}" alt="Casa Nawalli flowers" loading="lazy">
             <div class="self-center">
                 <p class="editorial-eyebrow">Nawalli</p>
                 <h2 class="mt-3 font-serif text-4xl md:text-5xl">A name rooted in transformation, rain and flowers.</h2>
