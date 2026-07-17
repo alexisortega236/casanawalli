@@ -1,0 +1,77 @@
+name: Deploy static preview to GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: |
+          composer install --prefer-dist --no-interaction --no-progress
+          npm ci
+
+      - name: Configure Laravel for static export
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          touch database/database.sqlite
+          php -r '$env=file_get_contents(".env"); $env=preg_replace("/DB_CONNECTION=.*/", "DB_CONNECTION=sqlite", $env); $env=preg_replace("/DB_HOST=.*/", "# DB_HOST=127.0.0.1", $env); $env=preg_replace("/DB_PORT=.*/", "# DB_PORT=3306", $env); $env=preg_replace("/DB_DATABASE=.*/", "DB_DATABASE=database/database.sqlite", $env); $env=preg_replace("/DB_USERNAME=.*/", "# DB_USERNAME=root", $env); $env=preg_replace("/DB_PASSWORD=.*/", "# DB_PASSWORD=", $env); file_put_contents(".env", $env);'
+          php artisan migrate --seed
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Export static pages
+        env:
+          PAGES_BASE_PATH: ${{ vars.PAGES_BASE_PATH }}
+        run: |
+          php artisan serve --host=127.0.0.1 --port=8000 &
+          sleep 3
+          bash scripts/export-static.sh
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: static-export
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

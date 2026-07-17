@@ -1,0 +1,57 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-serif: Georgia, Cambria, 'Times New Roman', Times, serif;
+    --color-nawalli-navy: #182653;
+    --color-nawalli-turquoise: #11aaa8;
+    --color-nawalli-aqua: #83d5cf;
+    --color-nawalli-ivory: #fffdf7;
+    --color-nawalli-sand: #f4efe4;
+    --color-nawalli-gold: #d8b46a;
+    --color-nawalli-green: #4f725e;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background: #fffdf7;
+        color: #182653;
+    }
+
+    :focus-visible {
+        outline: 3px solid #11aaa8;
+        outline-offset: 3px;
+    }
+}
+
+@layer components {
+    .editorial-eyebrow {
+        color: #4f725e;
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+
+    .image-wash {
+        background:
+            linear-gradient(rgba(24, 38, 83, 0.18), rgba(24, 38, 83, 0.42)),
+            var(--image-url);
+        background-position: center;
+        background-size: cover;
+    }
+
+    .botanical-paper {
+        background-image:
+            radial-gradient(circle at 20% 20%, rgba(17, 170, 168, 0.08), transparent 26%),
+            radial-gradient(circle at 80% 10%, rgba(79, 114, 94, 0.09), transparent 22%);
+    }
+}
