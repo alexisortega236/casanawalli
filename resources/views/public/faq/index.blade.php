@@ -3,6 +3,27 @@
 
 @section('title', 'FAQ | Casa Nawalli')
 
+@php
+    $faqSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'FAQPage',
+        'mainEntity' => $faqs->map(fn ($faq) => [
+            '@type' => 'Question',
+            'name' => $copy->get($faq, 'question'),
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text' => $copy->get($faq, 'answer'),
+            ],
+        ])->values(),
+    ];
+@endphp
+
+@push('structured_data')
+    <script type="application/ld+json">
+        @json($faqSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+    </script>
+@endpush
+
 @section('content')
     <section class="bg-nawalli-sand px-5 py-20 lg:px-8">
         <div class="mx-auto max-w-5xl">

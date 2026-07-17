@@ -4,6 +4,39 @@
 @section('title', $copy->get($room, 'name') . ' | Casa Nawalli')
 @section('meta_description', $copy->get($room, 'seo_description') ?: str($copy->get($room, 'description'))->limit(150))
 
+@php
+    $breadcrumbSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'BreadcrumbList',
+        'itemListElement' => [
+            [
+                '@type' => 'ListItem',
+                'position' => 1,
+                'name' => 'Home',
+                'item' => route('public.home', ['locale' => app()->getLocale()]),
+            ],
+            [
+                '@type' => 'ListItem',
+                'position' => 2,
+                'name' => 'Suites',
+                'item' => route('public.suites.index', ['locale' => app()->getLocale()]),
+            ],
+            [
+                '@type' => 'ListItem',
+                'position' => 3,
+                'name' => $copy->get($room, 'name'),
+                'item' => route('public.suites.show', ['locale' => app()->getLocale(), 'slug' => $room->slug]),
+            ],
+        ],
+    ];
+@endphp
+
+@push('structured_data')
+    <script type="application/ld+json">
+        @json($breadcrumbSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+    </script>
+@endpush
+
 @section('content')
     <section class="grid min-h-[70vh] lg:grid-cols-2">
         <div class="px-5 py-16 lg:px-16 lg:py-24">

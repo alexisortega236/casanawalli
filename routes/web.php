@@ -5,9 +5,12 @@ use App\Http\Controllers\Public\ContentPageController;
 use App\Http\Controllers\Public\ExperienceController;
 use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\Public\RoomController;
+use App\Http\Controllers\Public\SeoController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/en');
+Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('public.sitemap');
+Route::get('/robots.txt', [SeoController::class, 'robots'])->name('public.robots');
 
 Route::pattern('locale', 'en|es');
 

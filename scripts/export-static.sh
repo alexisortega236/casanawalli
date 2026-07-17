@@ -3,6 +3,7 @@ set -euo pipefail
 
 BASE_URL="${EXPORT_SOURCE_URL:-http://127.0.0.1:8000}"
 BASE_PATH="${PAGES_BASE_PATH:-}"
+STATIC_SITE_URL="${STATIC_SITE_URL:-}"
 OUT_DIR="${STATIC_EXPORT_DIR:-static-export}"
 export BASE_PATH
 
@@ -57,6 +58,12 @@ for path in "${paths[@]}"; do
   mkdir -p "$(dirname "$target")"
   curl -fsSL "$BASE_URL$path" -o "$target"
 done
+
+curl -fsSL "$BASE_URL/sitemap.xml" -o "$OUT_DIR/sitemap.xml"
+curl -fsSL "$BASE_URL/robots.txt" -o "$OUT_DIR/robots.txt"
+if [ -n "$STATIC_SITE_URL" ]; then
+  perl -0pi -e 's#https?://(?:127\.0\.0\.1:8000|localhost)#$ENV{STATIC_SITE_URL}#g' "$OUT_DIR/sitemap.xml" "$OUT_DIR/robots.txt"
+fi
 
 cp -R public/build "$OUT_DIR/build"
 cp -R public/assets "$OUT_DIR/assets"

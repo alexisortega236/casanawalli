@@ -60,13 +60,18 @@
             <div>
                 <p class="editorial-eyebrow">Experiences</p>
                 <h2 class="mt-3 font-serif text-4xl">Wellness, breakfast, gardens and local culture.</h2>
+                <a href="{{ route('public.experiences.index', ['locale' => app()->getLocale()]) }}" class="mt-8 inline-block font-bold text-nawalli-turquoise">Explore experiences</a>
             </div>
             <div class="lg:col-span-2 grid gap-6 md:grid-cols-2">
-                @foreach (['Heated salt water pool', 'Edible tropical gardens', 'Main house living room', 'Responsible travel practices'] as $experience)
-                    <article class="border-l-2 border-nawalli-gold bg-nawalli-ivory p-7">
-                        <h3 class="font-serif text-2xl">{{ $experience }}</h3>
-                        <p class="mt-4 text-nawalli-navy/70">Demo content from the current public site, ready to be edited in later phases.</p>
-                    </article>
+                @foreach ($featuredExperiences as $experience)
+                    <a href="{{ route('public.experiences.show', ['locale' => app()->getLocale(), 'slug' => $experience->slug]) }}" class="group grid border border-nawalli-ivory bg-nawalli-ivory md:grid-cols-[0.75fr_1fr]">
+                        <img class="h-full min-h-52 w-full object-cover" src="{{ $experience->image }}" alt="{{ $copy->get($experience, 'name') }}" loading="lazy">
+                        <span class="block p-6">
+                            <span class="text-xs font-bold uppercase tracking-[0.16em] text-nawalli-green">{{ $copy->get($experience, 'subtitle') }}</span>
+                            <span class="mt-2 block font-serif text-2xl group-hover:text-nawalli-turquoise">{{ $copy->get($experience, 'name') }}</span>
+                            <span class="mt-4 block text-sm leading-6 text-nawalli-navy/70">{{ str($copy->get($experience, 'description'))->limit(135) }}</span>
+                        </span>
+                    </a>
                 @endforeach
             </div>
         </div>
@@ -92,7 +97,20 @@
                 <p class="text-sm font-bold uppercase tracking-[0.2em] text-nawalli-aqua">Plaza Nawalli</p>
                 <h2 class="mt-3 font-serif text-4xl">A small local plaza connected to the Casa Nawalli experience.</h2>
             </div>
-            <p class="text-lg leading-8 text-white/80">This section is prepared for the dedicated Plaza Nawalli module: businesses, food, wellness, pickleball and local services will be managed from the admin panel in later phases.</p>
+            <div>
+                <p class="text-lg leading-8 text-white/80">Food, wellness, boutiques and local makers sit close to the hotel through Plaza Nawalli, making the stay feel connected to Sayulita without losing its quiet garden rhythm.</p>
+                <a href="{{ route('public.plaza', ['locale' => app()->getLocale()]) }}" class="mt-8 inline-block border border-white px-6 py-3 font-bold text-white">Visit Plaza Nawalli</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="px-5 py-20 lg:px-8">
+        <div class="mx-auto max-w-7xl">
+            <div class="grid gap-4 md:grid-cols-4">
+                @foreach ($featuredImages as $image)
+                    <img class="h-80 w-full object-cover {{ $loop->first ? 'md:col-span-2 md:h-[34rem]' : '' }}" src="{{ $image->image }}" alt="{{ $copy->get($image, 'alt') }}" loading="lazy">
+                @endforeach
+            </div>
         </div>
     </section>
 

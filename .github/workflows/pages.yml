@@ -54,6 +54,7 @@ jobs:
           php artisan serve --host=127.0.0.1 --port=8000 &
           sleep 3
           export PAGES_BASE_PATH="${PAGES_BASE_PATH:-/${GITHUB_REPOSITORY#*/}}"
+          export STATIC_SITE_URL="https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}"
           bash scripts/export-static.sh
 
       - name: Configure Pages

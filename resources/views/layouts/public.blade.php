@@ -10,16 +10,55 @@
         ['label' => 'About', 'route' => 'public.about'],
         ['label' => 'Contact', 'route' => 'public.contact'],
     ];
+    $title = trim($__env->yieldContent('title', 'Casa Nawalli'));
+    $description = trim($__env->yieldContent('meta_description', 'Casa Nawalli is an adults-only boutique hotel in Sayulita, Nayarit, one block from the sea.'));
+    $canonical = trim($__env->yieldContent('canonical', url()->current()));
+    $ogImage = trim($__env->yieldContent('og_image', asset('assets/current-site/hero-garden-pool.webp')));
+    $hotelSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'Hotel',
+        'name' => 'Casa Nawalli',
+        'description' => 'Adults-only boutique hotel and living tropical garden in Sayulita, Nayarit.',
+        'url' => route('public.home', ['locale' => $locale]),
+        'image' => asset('assets/current-site/hero-garden-pool.webp'),
+        'telephone' => '+52 329 298 8742',
+        'email' => 'info@nawallisayulita.com',
+        'address' => [
+            '@type' => 'PostalAddress',
+            'streetAddress' => 'Miramar #13',
+            'addressLocality' => 'Sayulita',
+            'addressRegion' => 'Nayarit',
+            'addressCountry' => 'MX',
+        ],
+        'amenityFeature' => [
+            ['@type' => 'LocationFeatureSpecification', 'name' => 'Adults-only boutique hotel', 'value' => true],
+            ['@type' => 'LocationFeatureSpecification', 'name' => 'Heated salt water pool', 'value' => true],
+            ['@type' => 'LocationFeatureSpecification', 'name' => 'Tropical edible gardens', 'value' => true],
+        ],
+    ];
 @endphp
 <!doctype html>
 <html lang="{{ $locale }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="@yield('meta_description', 'Casa Nawalli is an adults-only boutique hotel in Sayulita, Nayarit, one block from the sea.')">
-    <meta property="og:title" content="@yield('title', 'Casa Nawalli')">
-    <meta property="og:description" content="@yield('meta_description', 'A living garden by the sea in Sayulita.')">
-    <title>@yield('title', 'Casa Nawalli')</title>
+    <meta name="description" content="{{ $description }}">
+    <link rel="canonical" href="{{ $canonical }}">
+    <link rel="alternate" hreflang="en" href="{{ route('public.home', ['locale' => 'en']) }}">
+    <link rel="alternate" hreflang="es" href="{{ route('public.home', ['locale' => 'es']) }}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Casa Nawalli">
+    <meta property="og:title" content="{{ $title }}">
+    <meta property="og:description" content="{{ $description }}">
+    <meta property="og:url" content="{{ $canonical }}">
+    <meta property="og:image" content="{{ $ogImage }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $title }}">
+    <meta name="twitter:description" content="{{ $description }}">
+    <meta name="twitter:image" content="{{ $ogImage }}">
+    <title>{{ $title }}</title>
+    <script type="application/ld+json">@json($hotelSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)</script>
+    @stack('structured_data')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen font-sans antialiased">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Public\StoreAvailabilityRequest;
+use App\Models\Experience;
+use App\Models\GalleryImage;
 use App\Models\Room;
 use App\Models\SiteSetting;
 use App\Services\Booking\BookingProviderInterface;
@@ -20,6 +22,18 @@ class HomeController extends Controller
         return view('public.home', [
             'featuredRooms' => Room::query()
                 ->with('category')
+                ->where('is_active', true)
+                ->where('is_featured', true)
+                ->orderBy('sort_order')
+                ->take(4)
+                ->get(),
+            'featuredExperiences' => Experience::query()
+                ->where('is_active', true)
+                ->where('is_featured', true)
+                ->orderBy('sort_order')
+                ->take(4)
+                ->get(),
+            'featuredImages' => GalleryImage::query()
                 ->where('is_active', true)
                 ->where('is_featured', true)
                 ->orderBy('sort_order')

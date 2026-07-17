@@ -4,6 +4,32 @@
 @section('title', $copy->get($post, 'title') . ' | Casa Nawalli')
 @section('meta_description', $copy->get($post, 'seo_description') ?: $copy->get($post, 'excerpt'))
 
+@php
+    $blogPostSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'BlogPosting',
+        'headline' => $copy->get($post, 'title'),
+        'description' => $copy->get($post, 'excerpt'),
+        'image' => asset($post->featured_image),
+        'datePublished' => $post->published_at?->toAtomString(),
+        'dateModified' => $post->updated_at?->toAtomString(),
+        'author' => [
+            '@type' => 'Organization',
+            'name' => 'Casa Nawalli',
+        ],
+        'publisher' => [
+            '@type' => 'Organization',
+            'name' => 'Casa Nawalli',
+        ],
+    ];
+@endphp
+
+@push('structured_data')
+    <script type="application/ld+json">
+        @json($blogPostSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+    </script>
+@endpush
+
 @section('content')
     <article>
         <section class="bg-nawalli-sand px-5 py-20 lg:px-8">
